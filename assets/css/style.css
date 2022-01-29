@@ -51,14 +51,14 @@ h1, h2, h3, h4, h5, h6 {
   @apply bs-dark-green-bg text-white rounded-full px-6 py-2 inline-block
 }
 
-ul.slick-dots {
+.hero-slide ul.slick-dots {
   position: absolute;
   right: 2%;
   top: 50%;
   margin-top: -32.5px
 }
 
-ul.slick-dots button {
+.hero-slide ul.slick-dots button {
   text-indent: -9999px;
   background-color: #d1ddd2;
   border-radius: 50%;
@@ -66,7 +66,7 @@ ul.slick-dots button {
   width: 100%;
 }
 
-ul.slick-dots li {
+.hero-slide ul.slick-dots li {
   border-width: 1px;
   height: 15px;
   width: 15px;
@@ -76,10 +76,35 @@ ul.slick-dots li {
   padding: 2px;
 }
 
-ul.slick-dots li.slick-active {
+.hero-slide ul.slick-dots li.slick-active {
   border-color: #FF5C00;
 }
 
-ul.slick-dots li.slick-active button {
+.hero-slide ul.slick-dots li.slick-active button {
   @apply bs-dark-orange-bg;
+}
+
+
+.category-carousel .slick-slide > div {
+  margin-right: 35px;
+}
+
+.category-carousel .slick-list {
+  margin-right: -30px !important;
+}
+
+.category-carousel > svg {
+  height: 30px;
+  width: 30px;
+  background-color: #ddd;
+  border-radius: 50%;
+  padding: 5px;
+  position: absolute;
+  right: 50px;
+  top: -102px;
+  cursor: pointer;
+}
+
+.category-carousel > svg:last-child {
+  right: 0;
 }
