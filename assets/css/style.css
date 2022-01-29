@@ -13,6 +13,9 @@ body {
 .font-size-32 {
   font-size: 32px;
 }
+.font-size-22 {
+  font-size: 22px;
+}
 
 .bs-button-bg {
   background-color: #4f4f4f;
@@ -38,4 +41,45 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   @apply font-medium
+}
+
+.slide-bg {
+  background-color: #ebfaeb;
+}
+
+.bs-button {
+  @apply bs-dark-green-bg text-white rounded-full px-6 py-2 inline-block
+}
+
+ul.slick-dots {
+  position: absolute;
+  right: 2%;
+  top: 50%;
+  margin-top: -32.5px
+}
+
+ul.slick-dots button {
+  text-indent: -9999px;
+  background-color: #d1ddd2;
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+ul.slick-dots li {
+  border-width: 1px;
+  height: 15px;
+  width: 15px;
+  display: flex;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  padding: 2px;
+}
+
+ul.slick-dots li.slick-active {
+  border-color: #FF5C00;
+}
+
+ul.slick-dots li.slick-active button {
+  @apply bs-dark-orange-bg;
 }
