@@ -140,3 +140,7 @@ h1, h2, h3, h4, h5, h6 {
 .single-bs-product:hover .product-img-hover {
   display: flex;
 }
+
+.bs-modal-body {
+  max-width: 1000px;
+}

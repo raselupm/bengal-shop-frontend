@@ -153,7 +153,7 @@
         </div>
 
         <vue-slick-carousel class="category-carousel mb-16 text-center" v-bind="productCarouselSettings">
-          <SingleProductBox v-for="item in 10" :product="item"/>
+          <SingleProductBox v-for="item in 10" :key="item" :product="item"/>
 
 
 

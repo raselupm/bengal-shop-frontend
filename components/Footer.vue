@@ -89,6 +89,52 @@
         </div>
       </div>
     </div>
+
+
+
+
+    <!-- Product details modal -->
+    <div v-if="modal" class="fixed w-full h-full min-h-screen z-30 top-0 left-0">
+      <div @click.prevent="modalClose" class="absolute bg-black opacity-60 h-full w-full top-0 left-0"></div>
+      <div class="bs-modal-body bg-white rounded-2xl p-8 relative mx-auto z-30 my-10 relative">
+        <svg @click.prevent="modalClose" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute right-5 top-5 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+
+
+        <div class="flex -mx-8">
+          <div class="w-1/2 px-8">
+            <img src="~/assets/img/unsplash_nswz6tIpgZk.png"/>
+          </div>
+          <div class="w-1/2 px-8">
+            <p class="text-sm mb-3"><span class="uppercase text-gray-400 pr-6">Status</span> <span class="bs-dark-green-color">In Stock</span></p>
+            <h3 class="text-2xl">Product full name here - {{product}}</h3>
+            <p class="text-xs text-gray-400 mb-4 mt-2"><b>7</b> items available.</p>
+            <p class="text-2xl font-bold">$59.00 <del class="font-normal text-gray-400">$60</del></p>
+            <div class="flex my-6">
+              <input type="number" class="w-10 border border-gray-200 mr-5 text-center" value="1">
+              <button class="bs-button">Add to cart</button>
+            </div>
+
+            <div class="flex border-b border-gray-200 justify-between text-sm pb-3 mb-8">
+              <p class="flex items-center"><img src="~/assets/img/heart.png" class="w-4 mr-3" alt=""> Add to favourites</p>
+              <p class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                Share
+              </p>
+            </div>
+
+            <div class="text-xs leading-loose">
+              <p><span class="uppercase text-gray-400 w-20 inline-block">Sku:</span> JHJGJHGYUT876</p>
+              <p><span class="uppercase text-gray-400 w-20 inline-block">category:</span> Fruits, Vegerables, Others</p>
+              <p><span class="uppercase text-gray-400 w-20 inline-block">tags:</span> Test, Another, Test</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -96,7 +142,35 @@
 import Logo from "./Logo";
 export default {
   name: "Footer",
-  components: {Logo}
+  components: {Logo},
+  data() {
+    return {
+      modal: false,
+      product: ''
+    }
+  },
+
+  methods: {
+    modalClose() {
+      this.modal = false;
+
+      this.$store.dispatch("product-details-modal/resetModal");
+    }
+  },
+  mounted() {
+    this.$store.watch(
+      () => {
+        return this.$store.getters["product-details-modal/getModal"]
+      },
+      (val)=>{
+        this.modal = val.modal
+        this.product = val.product
+      },
+      {
+        deep:true
+      }
+    );
+  }
 }
 </script>
 
