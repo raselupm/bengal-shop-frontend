@@ -55,7 +55,7 @@
         <div class="w-full">
           <ul class="flex justify-center">
             <li><nuxt-link class="p-4" to="/">Home</nuxt-link></li>
-            <li><nuxt-link class="p-4" to="/">Categories</nuxt-link></li>
+            <li><nuxt-link class="p-4" to="/category">Categories</nuxt-link></li>
             <li><nuxt-link class="p-4" to="/">About</nuxt-link></li>
             <li><nuxt-link class="p-4" to="/">Contact</nuxt-link></li>
             <li><nuxt-link class="p-4" to="/">FAQs</nuxt-link></li>
