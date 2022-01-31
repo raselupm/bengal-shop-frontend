@@ -3,28 +3,36 @@ export const state = () => ({
 });
 
 export const mutations = {
-  ADD_TO_CART(state, product) {
+  ADD_TO_CART(state, data) {
+
     // save in localstorage
     let getProductsLocalStorage = JSON.parse(localStorage.getItem('cart'));
 
     let newProduct = true;
     getProductsLocalStorage.forEach(item => {
-      if(product.id === item.id) {
+      if(data.product.id === item.id) {
         newProduct = false
       }
     })
 
     if(newProduct) {
       getProductsLocalStorage.push({
-        id: product.id,
-        name: product.name,
+        id: data.product.id,
+        name: data.product.name,
         quantity: 1,
-        price: product.price,
+        price: data.product.price,
       });
     } else {
       getProductsLocalStorage.forEach((exitingProduct, index) => {
-        if(exitingProduct.id === product.id) {
-          getProductsLocalStorage[index].quantity = getProductsLocalStorage[index].quantity + 1;
+        if(exitingProduct.id === data.product.id) {
+          if(data.type === 'minus') {
+            if(getProductsLocalStorage[index].quantity > 1) {
+              getProductsLocalStorage[index].quantity = getProductsLocalStorage[index].quantity - 1;
+            }
+          } else {
+            getProductsLocalStorage[index].quantity = getProductsLocalStorage[index].quantity + 1;
+          }
+
         }
       })
     }
@@ -35,7 +43,9 @@ export const mutations = {
 
 
     // save in store
-    state.cart = product;
+    state.cart = getProductsLocalStorage;
+
+
 
     // save in user database
   }

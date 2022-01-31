@@ -13,14 +13,14 @@
 
 
         <div v-if="!matched" class="relative z-10">
-          <button class="text-white text-2xl" @click.prevent="addToCart(product)" >Add to cart</button>
+          <button class="text-white text-2xl" @click.prevent="addToCart(product, 'plus')" >Add to cart</button>
         </div>
 
         <div v-if="matched" class="relative z-10">
           <div class="flex justify-center items-center text-4xl text-white mb-8">
-            <button class="h-12 w-12 border border-white rounded-full">-</button>
-            <span class="mx-6">0</span>
-            <button class="h-12 w-12 border border-white rounded-full">+</button>
+            <button @click.prevent="addToCart(product, 'minus')" class="h-12 w-12 border border-white rounded-full">-</button>
+            <span class="mx-6">{{ quantity }}</span>
+            <button @click.prevent="addToCart(product, 'plus')" class="h-12 w-12 border border-white rounded-full">+</button>
           </div>
         </div>
       </div>
@@ -37,37 +37,64 @@ export default {
   props: ["product"],
   data() {
     return {
-      matched: false
+      matched: false,
+      quantity: ''
     }
   },
   methods: {
     productDetails() {
       this.$store.dispatch("product-details-modal/triggerModal", this.product);
     },
-    addToCart(product) {
-      this.$store.dispatch("cart/addToCart", this.product);
+    addToCart(product, type) {
+      this.$store.dispatch("cart/addToCart",
+        {
+          product: product,
+          type: type
+        }
+      );
+    },
+    productChecker() {
+      const getProductsLocalStorage = JSON.parse(localStorage.getItem('cart'));
+      const getProductsStore = this.$store.getters["cart/getCart"];
+
+      let cart = [];
+      if(getProductsStore.length) {
+        cart = getProductsStore;
+      } else {
+        cart = getProductsLocalStorage;
+      }
+
+
+      if(cart.length) {
+        cart.forEach(item => {
+          if(item.id === this.product.id) {
+            this.matched = true;
+            this.quantity = item.quantity
+          }
+        })
+      }
     }
   },
   mounted() {
-    const getProductsLocalStorage = JSON.parse(localStorage.getItem('cart'));
-    const getProductsStore = this.$store.getters["cart/getCart"];
+    this.productChecker()
 
-    let cart = [];
-    if(getProductsStore.length) {
-      cart = getProductsStore;
-    } else {
-      cart = getProductsLocalStorage;
-    }
-
-
-    if(cart.length) {
-     cart.forEach(item => {
-       if(item.id === this.product.id) {
-         this.matched = true;
-       }
-     })
-    }
-
+    this.$store.watch(
+      () => {
+        return this.$store.getters["cart/getCart"]
+      },
+      (val) => {
+        console.log('watcher')
+        this.productChecker();
+        // val.forEach(item => {
+        //   if(item.id === this.product.id) {
+        //     this.matched = true;
+        //   }
+        // })
+      },
+      {
+        deep:true
+      }
+    );
 
     //console.log(this.$store.getters["cart/getCart"]);
   }
