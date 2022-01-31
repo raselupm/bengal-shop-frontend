@@ -49,12 +49,34 @@ export const mutations = {
 
 
     // save in user database
+  },
+
+  REMOVE_CART(state, product_id) {
+    let getProductsLocalStorage = JSON.parse(localStorage.getItem('cart'));
+
+
+    if(getProductsLocalStorage.length) {
+      getProductsLocalStorage.forEach((item, index) => {
+        if(item.id === product_id) {
+          // remove this item
+          getProductsLocalStorage.splice(index, 1);
+        }
+      })
+    }
+
+
+    localStorage.setItem('cart', JSON.stringify(getProductsLocalStorage))
+
+    state.cart = getProductsLocalStorage;
   }
 }
 
 export const actions = {
   addToCart({commit}, product) {
     commit('ADD_TO_CART', product)
+  },
+  removeCart({commit}, product_id) {
+    commit('REMOVE_CART', product_id)
   }
 }
 
