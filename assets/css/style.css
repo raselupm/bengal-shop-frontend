@@ -144,3 +144,7 @@ h1, h2, h3, h4, h5, h6 {
 .bs-modal-body {
   max-width: 1000px;
 }
+
+span:last-child span.comma {
+  @apply hidden
+}

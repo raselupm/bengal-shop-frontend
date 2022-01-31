@@ -86,6 +86,12 @@ export default {
     menuClose() {
       this.allCategoryMenu = false
     }
+  },
+  mounted() {
+    let getLocalStorageProducts = JSON.parse(localStorage.getItem('cart'));
+    if(getLocalStorageProducts === null) {
+      localStorage.setItem('cart', '[]');
+    }
   }
 }
 </script>

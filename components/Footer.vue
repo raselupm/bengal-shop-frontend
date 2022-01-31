@@ -104,13 +104,13 @@
 
         <div class="flex -mx-8">
           <div class="w-1/2 px-8">
-            <img src="~/assets/img/unsplash_nswz6tIpgZk.png"/>
+            <img :src="product.image"/>
           </div>
           <div class="w-1/2 px-8">
             <p class="text-sm mb-3"><span class="uppercase text-gray-400 pr-6">Status</span> <span class="bs-dark-green-color">In Stock</span></p>
-            <h3 class="text-2xl">Product full name here - {{product}}</h3>
+            <h3 class="text-2xl">{{product.name}}</h3>
             <p class="text-xs text-gray-400 mb-4 mt-2"><b>7</b> items available.</p>
-            <p class="text-2xl font-bold">$59.00 <del class="font-normal text-gray-400">$60</del></p>
+            <p class="text-2xl font-bold">${{ product.sale }} <del class="font-normal text-gray-400">${{ product.price }}</del></p>
             <div class="flex my-6">
               <input type="number" class="w-10 border border-gray-200 mr-5 text-center" value="1">
               <button class="bs-button">Add to cart</button>
@@ -127,9 +127,16 @@
             </div>
 
             <div class="text-xs leading-loose">
-              <p><span class="uppercase text-gray-400 w-20 inline-block">Sku:</span> JHJGJHGYUT876</p>
-              <p><span class="uppercase text-gray-400 w-20 inline-block">category:</span> Fruits, Vegerables, Others</p>
-              <p><span class="uppercase text-gray-400 w-20 inline-block">tags:</span> Test, Another, Test</p>
+              <p><span class="uppercase text-gray-400 w-20 inline-block">Sku:</span> {{ product.sku }}</p>
+              <p><span class="uppercase text-gray-400 w-20 inline-block">category:</span>
+
+                <span v-for="item in product.categories"><nuxt-link class="bs-dark-green-color" :to="'category/' + item.name">{{item.name}}</nuxt-link><span class="comma">, </span></span>
+              </p>
+
+              <p><span class="uppercase text-gray-400 w-20 inline-block">tags:</span>
+
+                <span v-for="item in product.tags"><nuxt-link class="bs-dark-green-color" :to="'category/' + item.name">{{item.name}}</nuxt-link><span class="comma">, </span></span>
+              </p>
             </div>
           </div>
         </div>
@@ -152,8 +159,6 @@ export default {
 
   methods: {
     modalClose() {
-      this.modal = false;
-
       this.$store.dispatch("product-details-modal/resetModal");
     }
   },
