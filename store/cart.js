@@ -49,6 +49,10 @@ export const mutations = {
 
 
     // save in user database
+
+
+
+    this.$toast.success('Added to cart!');
   },
 
   REMOVE_CART(state, product_id) {
@@ -68,6 +72,8 @@ export const mutations = {
     localStorage.setItem('cart', JSON.stringify(getProductsLocalStorage))
 
     state.cart = getProductsLocalStorage;
+
+    this.$toast.info('Removed from cart!');
   }
 }
 
