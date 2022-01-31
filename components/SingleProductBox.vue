@@ -83,13 +83,7 @@ export default {
         return this.$store.getters["cart/getCart"]
       },
       (val) => {
-        console.log('watcher')
         this.productChecker();
-        // val.forEach(item => {
-        //   if(item.id === this.product.id) {
-        //     this.matched = true;
-        //   }
-        // })
       },
       {
         deep:true
